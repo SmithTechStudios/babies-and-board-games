@@ -49,7 +49,7 @@
         <div class="flex justify-between items-center w-full">
           <div class="stat">
             <div class="stat-title">Total Games Played</div>
-            <div class="stat-value text-2xl">{{ players[0].values.length }}</div>
+            <div class="stat-value text-2xl" v-if="!loading">{{ players[0].values.length }}</div>
           </div>
           <button class="btn btn-primary">
             View

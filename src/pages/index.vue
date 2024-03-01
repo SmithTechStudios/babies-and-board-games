@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-
+import { Icon } from '@iconify/vue'
 defineOptions({
   name: 'IndexPage',
 })
@@ -64,10 +64,80 @@ function useGameData(sheet: string, range: string) {
   }
 
 }
+
+
+const overallWinners = computed(() => {
+  const players = [...names];
+
+  return players.map(player => {
+    let score = 0;
+    let wins = 0;
+    let seconds = 0;
+    let thirds = 0;
+    [sortedSushiPlayers, sortedCantStopPlayers, sortedLuckyNumbersPlayers, sortedPiratenPlayers].forEach((game) => {
+      const gameIndex = game.value.findIndex(p => {
+        return p.name === player.name
+      })
+      const pos = 4 - gameIndex;
+      score += pos;
+      switch (gameIndex) {
+        case 0:
+          wins++; break;
+        case 1:
+          seconds++; break;
+        case 2:
+          thirds++; break;
+      }
+    })
+
+    return {
+      ...player,
+      score,
+      wins,
+      seconds,
+      thirds
+    }
+
+  }).sort((a, b) => b.score - a.score)
+});
+
+
 </script>
 
 <template>
   <div>
+
+    <div class="stats stats-vertical shadow w-full mb-4">
+
+      <div class="stat flex justify-between" v-for="winners in overallWinners" :key="winners.name">
+        <div class="stat-title flex items-center gap-4">
+          <div class="stat-value min-w-10 text-black">{{ winners.score }}</div>
+          <div class="avatar">
+            <div class="w-8 rounded-full">
+              <img :src="winners.avatar">
+            </div>
+          </div>
+          <span>
+            {{ winners.name }}
+          </span>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex items-center">
+            <Icon color="gold" icon="material-symbols:trophy"></Icon>{{ winners.wins }}
+          </div>
+          <div class="flex items-center">
+            <Icon color="silver" icon="material-symbols:trophy" />{{ winners.seconds }}
+          </div>
+          <div class="flex items-center">
+            <Icon class="text-orange-800" icon="material-symbols:trophy" />{{ winners.thirds }}
+          </div>
+
+        </div>
+      </div>
+
+
+
+    </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <GameCard name="Sushi Go Party!" logo-name="sushigoparty" :players="sortedSushiPlayers" :loading="sushiPending" />
 
