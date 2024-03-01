@@ -27,13 +27,15 @@ const names = [{
 }]
 
 
-const { data: sushiData, isPending: sushiPending } = useGameData('Sushi', 'B4:E100')
-const { data: cantStopData, isPending: cantStopPending } = useGameData('Cant Stop', 'B4:E100')
+const { sortedPlayers: sortedSushiPlayers, isPending: sushiPending } = useGameData('Sushi', 'B4:E100')
+const { sortedPlayers: sortedCantStopPlayers, isPending: cantStopPending } = useGameData('Cant Stop', 'B4:E100')
+const { sortedPlayers: sortedLuckyNumbersPlayers, isPending: luckyNumbersPending } = useGameData('Lucky Numbers', 'B4:E100')
+const { sortedPlayers: sortedPiratenPlayers, isPending: piratenPending } = useGameData('Piraten Kapern', 'B4:E100')
 
 
 
 function useGameData(sheet: string, range: string) {
-  return useQuery({
+  const query = useQuery({
     queryKey: [sheet],
     queryFn: async () => {
       const data = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/1PxItEjV2RF5gBpMxy-a8loEb76PFH8pGi_7-Hbb3Y4E/values/${sheet}!${range}?key=AIzaSyCFGiY1AO1wCGzepKqi1-k1g9o4R16Jyhg&majorDimension=COLUMNS`)
@@ -48,36 +50,35 @@ function useGameData(sheet: string, range: string) {
       })
     },
   })
+
+  const sortedPlayers = computed(() => {
+    if (query.isPending.value)
+      return []
+
+    return [...query.data.value!].sort((a, b) => a.total - b.total) ?? []
+  })
+
+  return {
+    ...query,
+    sortedPlayers
+  }
+
 }
-
-const sortedSushiPlayers = computed(() => {
-  if (sushiPending.value)
-    return []
-
-  return [...sushiData.value!].sort((a, b) => a.total - b.total) ?? []
-})
-
-
-const sortedCantStopPlayers = computed(() => {
-  if (cantStopPending.value)
-    return []
-
-  return [...cantStopData.value!].sort((a, b) => a.total - b.total) ?? []
-})
 </script>
 
 <template>
   <div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <GameCard name="Sushi Go Party!"
-        logo-url="https://cf.geekdo-images.com/2f9uTicUSXkdPp2Yks6zFw__itemrep/img/Y_jPOWbp6_2qOzymSNIC6SZo4TE=/fit-in/246x300/filters:strip_icc()/pic5885689.jpg"
-        :players="sortedSushiPlayers" :loading="sushiPending" />
+      <GameCard name="Sushi Go Party!" logo-name="sushigoparty" :players="sortedSushiPlayers" :loading="sushiPending" />
 
 
 
-      <GameCard name="Cant Stop"
-        logo-url="https://x.boardgamearena.net/data/gamemedia/cantstop/box/en_180.png?h=1651658243"
-        :players="sortedCantStopPlayers" :loading="cantStopPending" />
+      <GameCard name="Cant Stop" logo-name="cantstop" :players="sortedCantStopPlayers" :loading="cantStopPending" />
+
+      <GameCard name="Lucky Numbers" logo-name="luckynumbers" :players="sortedLuckyNumbersPlayers"
+        :loading="luckyNumbersPending" />
+
+      <GameCard name="Cant Stop" logo-name="piratenkapern" :players="sortedPiratenPlayers" :loading="piratenPending" />
     </div>
   </div>
 </template>
