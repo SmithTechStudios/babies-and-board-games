@@ -8,8 +8,7 @@
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
-    "up": "taze major -I",
-    "postinstall": "npx simple-git-hooks"
+    "up": "taze major -I"
   },
   "dependencies": {
     "@tanstack/vue-query": "^5.24.1",
@@ -28,7 +27,6 @@
     "jsdom": "^24.0.0",
     "pnpm": "^8.15.4",
     "postcss": "^8.4.35",
-    "simple-git-hooks": "^2.9.0",
     "tailwindcss": "^3.4.1",
     "taze": "^0.13.3",
     "typescript": "^5.3.3",
