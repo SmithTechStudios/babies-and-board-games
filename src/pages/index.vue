@@ -148,7 +148,8 @@ const overallWinners = computed(() => {
       <GameCard name="Lucky Numbers" logo-name="luckynumbers" :players="sortedLuckyNumbersPlayers"
         :loading="luckyNumbersPending" />
 
-      <GameCard name="Cant Stop" logo-name="piratenkapern" :players="sortedPiratenPlayers" :loading="piratenPending" />
+      <GameCard name="Piraten Kapern" logo-name="piratenkapern" :players="sortedPiratenPlayers"
+        :loading="piratenPending" />
     </div>
   </div>
 </template>

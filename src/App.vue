@@ -6,8 +6,10 @@
   <div class="bg-base-200 min-h-dvh">
     <nav class="navbar bg-base-100 shadow-xl rounded-b-box">
       <div class="flex-1">
-        <a class="btn btn-ghost text-xl">BG&B</a>
-        <small class="italic text-gray-500">Board games and Babies</small>
+        <RouterLink :to="{ name: '/' }">
+          <a class="btn btn-ghost text-xl">BG&B</a>
+          <small class="italic text-gray-500">Board games and Babies</small>
+        </RouterLink>
       </div>
       <div>
         <label class="swap swap-rotate mr-4">

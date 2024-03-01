@@ -51,9 +51,11 @@
             <div class="stat-title">Total Games Played</div>
             <div class="stat-value text-2xl" v-if="!loading">{{ players[0].values.length }}</div>
           </div>
-          <button class="btn btn-primary">
-            View
-          </button>
+          <RouterLink :to="{ name: '/game/[name]', params: { name } }">
+            <button class="btn btn-primary">
+              View
+            </button>
+          </RouterLink>
         </div>
       </div>
     </div>
