@@ -7,8 +7,8 @@
         <h2 class="card-title">
           Positions
         </h2>
-        <apexchart width="100%" type="bar" :options="options" :series="playerByPosition"></apexchart>
       </div>
+      <apexchart class="p-1" width="100%" type="bar" :options="options" :series="playerByPosition"></apexchart>
     </div>
 
     <div class="card bg-base-100">
@@ -16,8 +16,9 @@
         <h2 class="card-title">
           Points over time
         </h2>
-        <apexchart width="100%" type="line" :options="options" :series="pointsOverTime"></apexchart>
       </div>
+
+      <apexchart class="p-1" width="100%" type="line" :options="options" :series="pointsOverTime"></apexchart>
     </div>
   </div>
 </template>
