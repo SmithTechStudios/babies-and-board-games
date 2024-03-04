@@ -18,7 +18,13 @@
         </h2>
       </div>
 
-      <apexchart class="p-1" width="100%" type="line" :options="options" :series="pointsOverTime"></apexchart>
+      <apexchart class="p-1" width="100%" type="line" :options="{
+        chart: {
+          toolbar: {
+            show: false
+          }
+        }
+      }" :series="pointsOverTime"></apexchart>
     </div>
   </div>
 </template>
