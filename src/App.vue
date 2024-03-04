@@ -4,7 +4,7 @@
 
 <template>
   <div class="bg-base-200 min-h-dvh">
-    <nav class="navbar bg-base-100 shadow-xl rounded-b-box">
+    <nav class="navbar bg-base-100 shadow-xl rounded-b-box sticky top-0 z-10">
       <div class="flex-1">
         <RouterLink :to="{ name: '/' }">
           <a class="btn btn-ghost text-xl">BG&B</a>

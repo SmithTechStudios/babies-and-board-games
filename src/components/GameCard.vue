@@ -1,7 +1,7 @@
 <template>
   <div class="card bg-base-100 shadow-xl">
     <figure>
-      <div class="aspect-video w-full bg-base-100" :style="{
+      <div class="aspect-video w-full md:max-w-96 bg-base-100" :style="{
         background: imageBg
       }"></div>
     </figure>
@@ -51,7 +51,7 @@
             <div class="stat-title">Total Games Played</div>
             <div class="stat-value text-2xl" v-if="!loading">{{ players[0].values.length }}</div>
           </div>
-          <RouterLink :to="{ name: '/game/[name]', params: { name } }">
+          <RouterLink v-if="showView" :to="{ name: '/game/[name]', params: { name: logoName } }">
             <button class="btn btn-primary">
               View
             </button>
@@ -73,13 +73,14 @@ interface Props {
     values: number[],
     total: number
   }[]
-  loading: boolean
+  loading: boolean,
+  showView: boolean
 }
 
-const props = defineProps<Props>()
-
-const imageBg = computed(() => {
-  return `center right 20% / 80% no-repeat url(https://x.boardgamearena.net/data/gamemedia/${props.logoName}/title/en_500.png?h=1654730412), linear-gradient(0deg, #0000004d 0%, #00000000 50%, #0000004d 100%), center / cover no-repeat url(https://x.boardgamearena.net/data/gamemedia/${props.logoName}/banner/default_500.jpg?h=1654731306), center / cover no-repeat url(https://x.boardgamearena.net/data/themereleases/240221-1000/img/mainsite/games/default_banner.jpg)`
+const props = withDefaults(defineProps<Props>(), {
+  showView: true
 })
+
+const { imageBg } = useBackgroundImage(props.logoName);
 
 </script>
