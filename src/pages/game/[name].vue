@@ -19,12 +19,49 @@
       </div>
 
       <apexchart class="p-1" width="100%" type="line" :options="{
-        chart: {
-          toolbar: {
-            show: false
-          }
-        }
-      }" :series="pointsOverTime"></apexchart>
+    chart: {
+      toolbar: {
+        show: false
+      }
+    }
+  }" :series="pointsOverTime"></apexchart>
+    </div>
+
+    <div class="card bg-base-100">
+      <div class="card-body">
+        <h2 class="card-title">
+          Results
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <!-- head -->
+            <thead>
+              <tr>
+                <th v-for="player in players">
+                  <div class="flex items-center gap-2">
+                    <div class="avatar">
+                      <div class="w-8 rounded-full">
+                        <img :src="player.avatar">
+                      </div>
+                    </div>
+                    <span class="font-semibold">
+                      {{ player.name }}
+                    </span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- row 1 -->
+              <tr v-for="(row, index) in tableRows" :key="index">
+                <td v-for="col in row">{{ col }}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -103,5 +140,16 @@ function calculateCumulativeArray(numbers: number[]) {
   return cumulativeArray;
 }
 
+const tableRows = computed(() => {
+  //Create an array thats 100 elements long
 
+  const data: number[][] = Array.from({ length: 100 }, (_, i) => []);
+  players.value.map((player, index) => {
+    player.values.forEach((value, index) => {
+      data[index].push(value)
+    })
+  })
+
+  return data;
+})
 </script>
