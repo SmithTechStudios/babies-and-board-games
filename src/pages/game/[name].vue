@@ -32,7 +32,7 @@
         <h2 class="card-title">
           Results
         </h2>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto w-full">
           <table class="table table-zebra">
             <!-- head -->
             <thead>
