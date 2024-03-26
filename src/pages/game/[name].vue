@@ -33,11 +33,11 @@
           Results
         </h2>
         <div class="overflow-x-auto w-full">
-          <table class="table table-zebra">
+          <table class="table table-zebra relative">
             <!-- head -->
             <thead>
               <tr>
-                <th v-for="player in players">
+                <th class="sticky top-0 bg-white" v-for="player in players">
                   <div class="flex items-center gap-2">
                     <div class="avatar">
                       <div class="w-8 rounded-full">
@@ -54,7 +54,11 @@
             <tbody>
               <!-- row 1 -->
               <tr v-for="(row, index) in tableRows" :key="index">
-                <td v-for="col in row">{{ col }}</td>
+                <td class="font-bold" :class="{
+    'bg-[gold]': col === 1,
+    'bg-[silver]': col === 2,
+    'bg-[#ad8a56]': col === 3,
+  }" v-for="col in row">{{ col }}</td>
               </tr>
 
             </tbody>
